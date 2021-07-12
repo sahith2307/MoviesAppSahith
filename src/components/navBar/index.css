@@ -15,7 +15,7 @@ body {
 .container-pages {
   display: flex;
   justify-content: space-between;
-  margin-left: 20px;
+  margin-left: 50px;
   width: 10vw;
 }
 .pages {
@@ -39,8 +39,11 @@ body {
   font-size: 16px;
 }
 .sign-button-cont {
+  width: 20%;
+  display: flex;
+  justify-content: space-between;
   text-align: right;
-  margin: 20px;
+  margin: 60px;
 }
 .images-movies {
   margin: 20px;
@@ -55,4 +58,12 @@ body {
 .image-butn {
   height: 40px;
   width: 40px;
+}
+.input-text {
+  background-color: transparent;
+  border: 1px solid #ffffff;
+  height: 30px;
+  border-radius: 5px;
+  margin-top: 10px;
+  color: #ffffff;
 }

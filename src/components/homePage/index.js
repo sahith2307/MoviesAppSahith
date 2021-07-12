@@ -14,6 +14,7 @@ class HomePage extends Component {
     topRated: [],
     original: [],
     singleTop: [],
+    genreId: '',
   }
 
   componentDidMount() {
@@ -41,7 +42,12 @@ class HomePage extends Component {
   }
 
   clickImage = id => {
-    console.log(id)
+    this.setState({genreId: id}, this.imageDetails)
+  }
+
+  imageDetails = () => {
+    const {genreId} = this.state
+    console.log(genreId)
   }
 
   topRatedMovies = async key => {

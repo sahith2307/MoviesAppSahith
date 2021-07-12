@@ -25,6 +25,7 @@ const Header = () => (
       </ul>
     </div>
     <div className="sign-button-cont">
+      <input type="text" className="input-text" />
       <button type="button" className="button-img">
         <Link to="account-details">
           <img
