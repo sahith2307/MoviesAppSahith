@@ -8,6 +8,8 @@ import Popular from './components/popularPage'
 
 import Account from './components/accountDetails'
 
+import SearchBar from './components/SearchBar'
+
 import './App.css'
 
 const App = () => (
@@ -17,6 +19,7 @@ const App = () => (
       <Route exact path="/" component={HomePage} />
       <Route exact path="/popular" component={Popular} />
       <Route exact path="/account-details" component={Account} />
+      <Route exact path="/search" component={SearchBar} />
     </Switch>
   </BrowserRouter>
 )

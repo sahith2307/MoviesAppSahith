@@ -4,36 +4,40 @@ import Header from '../navBar'
 
 const apiKey = 'bdeb82385f84755468ab85488a72351c'
 class SearchBar extends Component {
-  state = {searchMovies: [], number: 1, searchInput: ''}
+  state = {searchMoviesData: [], number: 1, lengthData: 1, searchInput: ''}
 
   componentDidMount() {
-    const {number, searchMovies} = this.state
-    this.popularMovies(apiKey, number, searchMovies)
+    const {number, searchInput} = this.state
+    this.searchMovies(apiKey, number, searchInput)
   }
 
   onIncrementCount = () => {
-    const {number, searchInput} = this.state
-    if (number >= 20) {
+    const {number, searchInput, lengthData} = this.state
+    if (number > lengthData) {
       this.setState({number: 20})
-      this.popularMovies(apiKey, 20)
+      this.searchMovies(apiKey, 20, searchInput)
     } else {
       this.setState(prevState => ({number: prevState.number + 1}))
-      this.popularMovies(apiKey, number + 1, searchInput)
+      this.searchMovies(apiKey, number + 1, searchInput)
     }
+  }
+
+  updateInput = value => {
+    this.setState({searchInput: value}, this.searchMovies)
   }
 
   onDecrementCount = () => {
     const {number, searchInput} = this.state
     if (number <= 1) {
       this.setState({number: 1})
-      this.popularMovies(apiKey, 1)
+      this.searchMovies(apiKey, 1, searchInput)
     } else {
       this.setState(prevState => ({number: prevState.number - 1}))
-      this.popularMovies(apiKey, number - 1, searchInput)
+      this.searchMovies(apiKey, number - 1, searchInput)
     }
   }
 
-  popularMovies = async (key, number, aim) => {
+  searchMovies = async (key, number, aim) => {
     const url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&language=en-US&query=${aim}&page=${number}`
     const options = {
       method: 'GET',
@@ -47,18 +51,21 @@ class SearchBar extends Component {
         posterPath: result.poster_path,
         id: result.id,
       }))
-      this.setState({searchMovies: updatedData})
+      this.setState({
+        searchMoviesData: updatedData,
+        lengthData: data.results.length,
+      })
     }
   }
 
   render() {
-    const {searchMovies, number} = this.state
+    const {searchMoviesData, number, lengthData} = this.state
     const indicator1 = '<'
     const indicator2 = '>'
     return (
       <div className="container">
-        <Header />
-        <PopularMovies dataList={searchMovies} />
+        <Header updateInput={this.updateInput} />
+        <PopularMovies dataList={searchMoviesData} />
         <div className="buttons-cont">
           <button
             type="button"
@@ -67,7 +74,7 @@ class SearchBar extends Component {
           >
             {indicator1}
           </button>
-          <p className="pages">{`${number} of 20`}</p>
+          <p className="pages">{`${number} of ${lengthData}`}</p>
           <button
             type="button"
             className="button-box"
