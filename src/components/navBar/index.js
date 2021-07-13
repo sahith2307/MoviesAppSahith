@@ -1,6 +1,7 @@
 import {Component} from 'react'
 import './index.css'
 import {Link} from 'react-router-dom'
+import {AiOutlineSearch} from 'react-icons/ai'
 
 class Header extends Component {
   state = {
@@ -10,11 +11,6 @@ class Header extends Component {
 
   onSearch = () => {
     this.setState(pre => ({search: !pre.search}))
-  }
-
-  onSearchInput = event => {
-    this.setState({searchValue: event.target.value}, this.updatingInput)
-    this.updatingInput()
   }
 
   updatingInput = () => {
@@ -51,22 +47,9 @@ class Header extends Component {
         </div>
 
         <div className="sign-button-cont">
-          {search && (
-            <input
-              type="search"
-              className="input-text"
-              placeholder="Search"
-              onChange={this.onSearchInput}
-            />
-          )}
-
           <button type="button" className="searchBtn" onClick={this.onSearch}>
             <Link to="/search">
-              <img
-                src="https://res.cloudinary.com/dbzwiigl5/image/upload/v1625852995/search-13-24_fyvx5m.ico"
-                alt="search-icon"
-                className="search-icon"
-              />
+              <AiOutlineSearch />
             </Link>
           </button>
           <button type="button" className="button-img">

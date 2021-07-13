@@ -1,6 +1,7 @@
 import {Component} from 'react'
 import PopularMovies from '../popular'
 import Header from '../navBar'
+import './index.css'
 
 const apiKey = 'bdeb82385f84755468ab85488a72351c'
 class SearchBar extends Component {
@@ -22,8 +23,9 @@ class SearchBar extends Component {
     }
   }
 
-  updateInput = value => {
-    this.setState({searchInput: value}, this.searchMovies)
+  updateInput = event => {
+    const search = event.target.value
+    this.setState({searchInput: search}, this.searchMovies)
   }
 
   onDecrementCount = () => {
@@ -59,38 +61,55 @@ class SearchBar extends Component {
   }
 
   render() {
-    const {searchMoviesData, number, lengthData} = this.state
+    const {searchMoviesData, number, lengthData, searchInput} = this.state
     const indicator1 = '<'
     const indicator2 = '>'
     return (
-      <div className="container">
+      <>
         <Header updateInput={this.updateInput} />
-        <PopularMovies dataList={searchMoviesData} />
-        <div className="buttons-cont">
-          <button
-            type="button"
-            className="button-box"
-            onClick={this.onDecrementCount}
-          >
-            {indicator1}
-          </button>
-          <p className="pages">{`${number} of ${lengthData}`}</p>
-          <button
-            type="button"
-            className="button-box"
-            onClick={this.onIncrementCount}
-          >
-            {indicator2}
-          </button>
+        <div className="container">
+          <div>
+            <input
+              type="search"
+              className="input-text"
+              placeholder="Search"
+              onChange={this.updateInput}
+            />
+            <button
+              className="search-button"
+              type="button"
+              onClick={this.searchMovies(apiKey, 1, searchInput)}
+            >
+              Search
+            </button>
+          </div>
+          <PopularMovies dataList={searchMoviesData} />
+          <div className="buttons-cont">
+            <button
+              type="button"
+              className="button-box"
+              onClick={this.onDecrementCount}
+            >
+              {indicator1}
+            </button>
+            <p className="pages">{`${number} of ${lengthData}`}</p>
+            <button
+              type="button"
+              className="button-box"
+              onClick={this.onIncrementCount}
+            >
+              {indicator2}
+            </button>
+          </div>
+          <div className="social-cont">
+            <img
+              alt="social-media"
+              src="https://res.cloudinary.com/sahith/image/upload/v1625413241/Group_7395_mruqti.png"
+            />
+            <p className="pages">Contact Us</p>
+          </div>
         </div>
-        <div className="social-cont">
-          <img
-            alt="social-media"
-            src="https://res.cloudinary.com/sahith/image/upload/v1625413241/Group_7395_mruqti.png"
-          />
-          <p className="pages">Contact Us</p>
-        </div>
-      </div>
+      </>
     )
   }
 }
