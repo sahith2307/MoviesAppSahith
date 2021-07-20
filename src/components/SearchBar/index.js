@@ -2,7 +2,7 @@ import {Component} from 'react'
 import PopularMovies from '../popular'
 import Header from '../navBar'
 
-const apiKey = 'e202605be51fda15275be801c94fd004'
+const apiKey = 'bdeb82385f84755468ab85488a72351c'
 class SearchBar extends Component {
   state = {searchMoviesData: [], number: 1, lengthData: 1, searchInput: ''}
 
