@@ -1,20 +1,25 @@
 import {Component} from 'react'
 import Slider from 'react-slick'
+
+import {Link} from 'react-router-dom'
+
 import './index.css'
 
 class Responsive extends Component {
   imgContainer = dataList => {
     const {clickImage} = this.props
     return dataList.map(each => (
-      <div key={each.id} className="cont-size">
-        <img
-          className="picture"
-          id={each.id}
-          src={`https://image.tmdb.org/t/p/original/${each.posterPath}`}
-          alt={each.originalTitle}
-          onClick={e => clickImage(e.target.id)}
-        />
-      </div>
+      <Link key={each.id} to={`/Specific/${each.id}`}>
+        <div key={each.id} className="cont-size">
+          <img
+            className="picture"
+            id={each.id}
+            src={`https://image.tmdb.org/t/p/original/${each.posterPath}`}
+            alt={each.originalTitle}
+            onClick={v => clickImage(v.target.id)}
+          />
+        </div>
+      </Link>
     ))
   }
 

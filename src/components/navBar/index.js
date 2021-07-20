@@ -13,6 +13,11 @@ class Header extends Component {
     this.setState(pre => ({search: !pre.search}))
   }
 
+  onSearchInput = event => {
+    this.setState({searchValue: event.target.value}, this.updatingInput)
+    this.updatingInput()
+  }
+
   updatingInput = () => {
     const {searchValue} = this.state
     const {updateInput} = this.props
@@ -21,8 +26,6 @@ class Header extends Component {
 
   render() {
     const {search} = this.state
-
-    console.log(search)
     return (
       <nav className="nav-header">
         <div className="container-pages">
@@ -47,13 +50,21 @@ class Header extends Component {
         </div>
 
         <div className="sign-button-cont">
-          <button type="button" className="searchBtn" onClick={this.onSearch}>
+          {search && (
+            <input
+              type="search"
+              className="search-input"
+              placeholder="Search"
+              onChange={this.onSearchInput}
+            />
+          )}
+          <button type="button" onClick={this.onSearch}>
             <Link to="/search">
-              <AiOutlineSearch />
+              <AiOutlineSearch className="sort-by-icon" />
             </Link>
           </button>
           <button type="button" className="button-img">
-            <Link to="account-details">
+            <Link to="/account-details">
               <img
                 className="button-img"
                 src="https://res.cloudinary.com/dbzwiigl5/image/upload/v1626086256/pngarea.com_mexico-png-avatar-5646242_iwkm3x.png"

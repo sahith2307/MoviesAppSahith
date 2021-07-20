@@ -10,6 +10,8 @@ import Account from './components/accountDetails'
 
 import SearchBar from './components/SearchBar'
 
+import MovieDetails from './components/movieDetailsPage'
+
 import './App.css'
 
 const App = () => (
@@ -20,6 +22,7 @@ const App = () => (
       <Route exact path="/popular" component={Popular} />
       <Route exact path="/account-details" component={Account} />
       <Route exact path="/search" component={SearchBar} />
+      <Route exact path="/Specific/:id" component={MovieDetails} />
     </Switch>
   </BrowserRouter>
 )
