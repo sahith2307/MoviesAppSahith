@@ -74,35 +74,37 @@ class SearchBar extends Component {
     const indicator1 = '<'
     const indicator2 = '>'
     return (
-      <div className="container">
-        <Header updateInput={this.updateInput} />
-        <PopularMovies
-          dataList={searchMoviesData}
-          clickImage={this.clickImage}
-        />
-        <div className="buttons-cont">
-          <button
-            type="button"
-            className="button-box"
-            onClick={this.onDecrementCount}
-          >
-            {indicator1}
-          </button>
-          <p className="pages">{`${number} of ${lengthData}`}</p>
-          <button
-            type="button"
-            className="button-box"
-            onClick={this.onIncrementCount}
-          >
-            {indicator2}
-          </button>
-        </div>
-        <div className="social-cont">
-          <img
-            alt="social-media"
-            src="https://res.cloudinary.com/sahith/image/upload/v1625413241/Group_7395_mruqti.png"
+      <div className="cont">
+        <div className="container">
+          <Header updateInput={this.updateInput} />
+          <PopularMovies
+            dataList={searchMoviesData}
+            clickImage={this.clickImage}
           />
-          <p className="pages">Contact Us</p>
+          <div className="buttons-cont">
+            <button
+              type="button"
+              className="button-box"
+              onClick={this.onDecrementCount}
+            >
+              {indicator1}
+            </button>
+            <p className="pages">{`${number} of ${lengthData}`}</p>
+            <button
+              type="button"
+              className="button-box"
+              onClick={this.onIncrementCount}
+            >
+              {indicator2}
+            </button>
+          </div>
+          <div className="social-cont">
+            <img
+              alt="social-media"
+              src="https://res.cloudinary.com/sahith/image/upload/v1625413241/Group_7395_mruqti.png"
+            />
+            <p className="pages">Contact Us</p>
+          </div>
         </div>
       </div>
     )

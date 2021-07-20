@@ -42,7 +42,7 @@ class Header extends Component {
               </Link>
             </li>
             <li className="nav-menu-item">
-              <Link to="/PopularMovies" className="pages">
+              <Link to="/popular" className="pages">
                 Popular
               </Link>
             </li>
