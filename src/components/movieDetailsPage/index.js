@@ -1,6 +1,8 @@
 import {Component} from 'react'
 import Header from '../navBar'
 
+import TopHome from '../movieDetailsTop'
+
 const apiKey = 'bdeb82385f84755468ab85488a72351c'
 
 class MovieDetails extends Component {
@@ -44,6 +46,7 @@ class MovieDetails extends Component {
         backdropPath: `${data.backdrop_path}`,
         originalTitle: `${data.original_title}` || `${data.original_name}`,
         posterPath: `${data.poster_path}`,
+        overview: data.overview,
         id: `${data.id}`,
       }
       this.setState({movieData: updatedData})
@@ -60,16 +63,10 @@ class MovieDetails extends Component {
       budget,
     } = this.state
     console.log(genres, languages, ratingCount, ratingAverage, budget)
-    const {backdropPath} = movieData
     return (
       <div className="bg">
         <Header />
-        <h1>{movieData.backdropPath}</h1>
-        <img
-          src={`https://image.tmdb.org/t/p/original${backdropPath}`}
-          alt="jaffa"
-          className="image-logo"
-        />
+        <TopHome dataList={movieData} />
       </div>
     )
   }

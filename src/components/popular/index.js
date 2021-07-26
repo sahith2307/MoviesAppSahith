@@ -4,9 +4,8 @@ import {Link} from 'react-router-dom'
 import './index.css'
 
 class PopularMovies extends Component {
-  imgContainer = dataList => {
-    const {clickImage} = this.props
-    return dataList.map(each => (
+  imgContainer = dataList =>
+    dataList.map(each => (
       <Link key={each.id} to={`/Specific/${each.id}`}>
         <div key={each.id} className="cont-size">
           <img
@@ -14,12 +13,10 @@ class PopularMovies extends Component {
             id={each.id}
             src={`https://image.tmdb.org/t/p/original/${each.posterPath}`}
             alt={each.originalTitle}
-            onClick={v => clickImage(v.target.id)}
           />
         </div>
       </Link>
     ))
-  }
 
   render() {
     const {dataList} = this.props
