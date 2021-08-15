@@ -9,7 +9,7 @@ class Responsive extends Component {
   imgContainer = dataList => {
     const {clickImage} = this.props
     return dataList.map(each => (
-      <Link key={each.id} to={`/Specific/${each.id}`}>
+      <Link key={each.id} to={`/specific/${each.id}`}>
         <div key={each.id} className="cont-size">
           <img
             className="picture"

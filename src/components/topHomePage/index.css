@@ -22,3 +22,18 @@
   border-width: 0px;
   border-radius: 5px;
 }
+@media screen and (max-width: 768px) {
+  .content-cont {
+    width: 50%;
+    margin: 0px;
+  }
+  .container-top {
+    width: 100%;
+  }
+  h1 {
+    font-size: 20px;
+  }
+  p {
+    font-size: 14px;
+  }
+}

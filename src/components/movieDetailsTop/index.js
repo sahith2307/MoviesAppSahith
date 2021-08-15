@@ -10,6 +10,7 @@ class TopHome extends Component {
         key={id}
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original/${backdropPath})`,
+          backgroundSize: 'cover',
         }}
         className="container-top"
       >

@@ -5,7 +5,12 @@ import {BsSearch} from 'react-icons/bs'
 
 class Header extends Component {
   state = {
+    search: true,
     searchValue: '',
+  }
+
+  onSearch = () => {
+    this.setState(pre => ({search: !pre.search}))
   }
 
   onSearchInput = event => {
@@ -20,6 +25,9 @@ class Header extends Component {
   }
 
   render() {
+    const {search} = this.state
+    console.log(search)
+
     return (
       <nav className="nav-header">
         <div className="container-pages">
@@ -46,6 +54,14 @@ class Header extends Component {
         </div>
 
         <div className="sign-button-cont">
+          {search && (
+            <input
+              type="search"
+              className="search-input"
+              placeholder="Search"
+              onChange={this.onSearchInput}
+            />
+          )}
           <Link to="/search">
             <BsSearch className="search-butn" onClick={this.onSearch} />
           </Link>

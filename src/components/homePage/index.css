@@ -1,17 +1,14 @@
-* {
-  box-sizing: border-box;
-}
 body {
   margin: 0px;
 }
 .background {
   background-color: #181818;
   height: 100%;
-  width: 100%;
+  width: 100vw;
   background-size: cover;
 }
-.container-top {
-  width: 100vw;
-  height: 80%;
-  background-size: cover;
+@media screen and (max-width: 768px) {
+  .background {
+    background: 100vw;
+  }
 }
