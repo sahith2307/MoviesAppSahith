@@ -1,10 +1,18 @@
 import {Component} from 'react'
+import Loader from 'react-loader-spinner'
 import PopularMovies from '../popular'
 import Header from '../navSearch'
+import './index.css'
 
 const apiKey = 'bdeb82385f84755468ab85488a72351c'
 class SearchBar extends Component {
-  state = {searchMoviesData: [], number: 1, lengthData: 1, searchInput: ''}
+  state = {
+    searchMoviesData: [],
+    number: 1,
+    lengthData: 1,
+    searchInput: '',
+    statusPut: 'empty',
+  }
 
   componentDidMount() {
     const {number, searchInput} = this.state
@@ -41,6 +49,7 @@ class SearchBar extends Component {
     const response = await fetch(url, options)
     if (response.ok === true) {
       const data = await response.json()
+      this.setState({statusPut: 'progress'})
       console.log(data)
       const updatedData = data.results.map(result => ({
         backdropPath: result.backdrop_path,
@@ -48,10 +57,15 @@ class SearchBar extends Component {
         posterPath: result.poster_path,
         id: result.id,
       }))
-      this.setState({
-        searchMoviesData: updatedData,
-        lengthData: data.total_pages,
-      })
+      if (data.total_results === 0) {
+        this.setState({statusPut: 'failure'})
+      } else {
+        this.setState({
+          searchMoviesData: updatedData,
+          lengthData: data.total_pages,
+          statusPut: 'success',
+        })
+      }
     }
   }
 
@@ -61,8 +75,27 @@ class SearchBar extends Component {
     this.searchMovies(apiKey, number, value)
   }
 
-  render() {
-    const {searchMoviesData, number, lengthData} = this.state
+  loaderCreate = () => (
+    <div>
+      <Header updateInput={this.updateInput} />
+      <Loader type="Loader" color="#0b69ff" height="50" width="50" />
+    </div>
+  )
+
+  noMovies = () => (
+    <div>
+      <Header updateInput={this.updateInput} />
+      <div className="noMoves-cont">
+        <img
+          className="noImage"
+          src="https://res.cloudinary.com/sahith/image/upload/v1625148791/Group_7394_sq7tlh.png"
+          alt="NoMoviesOnThatName"
+        />
+      </div>
+    </div>
+  )
+
+  dataReturn = (searchMoviesData, number, lengthData) => {
     const indicator1 = '<'
     const indicator2 = '>'
     return (
@@ -95,6 +128,28 @@ class SearchBar extends Component {
         </div>
       </div>
     )
+  }
+
+  render() {
+    const {searchMoviesData, number, lengthData, statusPut} = this.state
+
+    switch (statusPut) {
+      case 'progress': {
+        return this.loaderCreate()
+      }
+      case 'success': {
+        return this.dataReturn(searchMoviesData, number, lengthData)
+      }
+      case 'failure': {
+        return this.noMovies()
+      }
+      default:
+        return (
+          <div className="cont">
+            <Header updateInput={this.updateInput} />
+          </div>
+        )
+    }
   }
 }
 

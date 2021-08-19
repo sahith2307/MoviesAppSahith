@@ -127,7 +127,7 @@ class MovieDetails extends Component {
 
           {languages !== [] && this.genresShow(languages, 'Audio')}
           <div>
-            {(ratingCount !== 0 || ratingCount !== undefined) && (
+            {ratingCount !== 0 && (
               <div>
                 <h1 className="heading">Rating Count</h1>
                 <p>{ratingCount}</p>

@@ -5,6 +5,8 @@ body {
   margin: 0px;
 }
 .nav-header {
+  position: fixed;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -14,6 +16,7 @@ body {
 }
 .container-pages {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   margin-left: 50px;
   width: 10vw;
@@ -30,6 +33,7 @@ body {
   list-style-type: none;
   margin-top: 10px;
   margin-bottom: 0px;
+  background-color: #181818;
 }
 .pages-cont {
   padding-right: 10px;
@@ -37,6 +41,7 @@ body {
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
+  background-color: #181818;
 }
 .sign-button-cont {
   width: 20%;
@@ -71,4 +76,9 @@ body {
 .search-butn {
   margin-top: 10px;
   color: #ffffff;
+}
+@media screen and (max-width: 768px) {
+  .container-pages {
+    flex-direction: column;
+  }
 }

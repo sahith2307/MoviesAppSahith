@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import Loader from 'react-loader-spinner'
 import './index.css'
 import PopularMovies from '../popular'
 import Header from '../navBar'
@@ -8,6 +9,8 @@ class Popular extends Component {
   state = {
     movies: [],
     number: 1,
+    lengthData: 1,
+    statusPut: 'empty',
   }
 
   componentDidMount() {
@@ -16,9 +19,9 @@ class Popular extends Component {
   }
 
   onIncrementCount = () => {
-    const {number} = this.state
+    const {number, lengthData} = this.state
     if (number >= 20) {
-      this.setState({number: 20})
+      this.setState({number: lengthData})
       this.popularMovies(apiKey, 20)
     } else {
       this.setState(prevState => ({number: prevState.number + 1}))
@@ -45,24 +48,37 @@ class Popular extends Component {
     const response = await fetch(url, options)
     if (response.ok === true) {
       const data = await response.json()
+      console.log(data)
       const updatedData = data.results.map(result => ({
         backdropPath: result.backdrop_path,
         originalTitle: result.original_title || result.original_name,
         posterPath: result.poster_path,
         id: result.id,
       }))
-      this.setState({movies: updatedData})
+      this.setState({
+        movies: updatedData,
+        lengthData: data.total_pages,
+        statusPut: 'success',
+      })
     }
   }
 
-  render() {
-    const {movies, number} = this.state
+  loaderCreate = () => (
+    <div>
+      <Header updateInput={this.updateInput} />
+      <div className="loader-spin-cont">
+        <Loader type="TailSpin" color="#E50014" height="100" width="100" />
+      </div>
+    </div>
+  )
+
+  dataReturn = (searchMoviesData, number, lengthData) => {
     const indicator1 = '<'
     const indicator2 = '>'
     return (
       <div className="container">
-        <Header />
-        <PopularMovies dataList={movies} />
+        <Header updateInput={this.updateInput} />
+        <PopularMovies dataList={searchMoviesData} />
         <div className="buttons-cont">
           <button
             type="button"
@@ -71,7 +87,7 @@ class Popular extends Component {
           >
             {indicator1}
           </button>
-          <p className="pages">{`${number} of 20`}</p>
+          <p className="pages">{`${number} of ${lengthData}`}</p>
           <button
             type="button"
             className="button-box"
@@ -89,6 +105,17 @@ class Popular extends Component {
         </div>
       </div>
     )
+  }
+
+  render() {
+    const {movies, number, lengthData, statusPut} = this.state
+    switch (statusPut) {
+      case 'success': {
+        return this.dataReturn(movies, number, lengthData)
+      }
+      default:
+        return this.loaderCreate()
+    }
   }
 }
 

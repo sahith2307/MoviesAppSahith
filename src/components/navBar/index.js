@@ -37,7 +37,7 @@ class Header extends Component {
                 Home
               </Link>
             </li>
-            <li className="nav-menu-item">
+            <li className="pages-cont">
               <Link to="/popular" className="pages">
                 Popular
               </Link>
